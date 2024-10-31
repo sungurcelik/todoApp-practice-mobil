@@ -6,25 +6,29 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.textSecondary,
-    flexDirection:"row",
-    alignItems:"center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontWeight: 'bold',
     color: colors.textPrimary,
     fontSize: 25,
   },
+  completedTitle: {
+    color: colors.danger,
+    textDecorationLine: "line-through"
+  },
   date: {
     color: colors.textPrimary,
-    marginTop:10
+    marginTop: 10,
   },
-  textWrapper:{
-    flex:1
+  textWrapper: {
+    flex: 1,
   },
-  iconsWrapper:{
-    flexDirection:"row",
-    gap:10
-  }
+  iconsWrapper: {
+    flexDirection: 'row',
+    gap: 10,
+  },
 });
 
 export default styles;
