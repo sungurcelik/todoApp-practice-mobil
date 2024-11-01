@@ -32,4 +32,4 @@ npm run android
 yarn android
 ```
 
-![Uploading ZightRecording2024-11-01at06.12.35PM-ezgif.com-video-to-gif-converter.gif…]()
+![](ZightRecording2024-11-01at06.12.35PM-ezgif.com-video-to-gif-converter.gif)
