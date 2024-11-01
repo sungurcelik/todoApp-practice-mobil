@@ -32,4 +32,4 @@ npm run android
 yarn android
 ```
 
-![Todo App](https://github.com/sungurcelik/todoApp-practice-mobil/issues/1#issue-2629283366)
+![TodoApp](https://github.com/sungurcelik/todoApp-practice-mobil/issues/1#issue-2629283366)
