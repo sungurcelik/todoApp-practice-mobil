@@ -4,10 +4,13 @@ import styles from './style';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../utils/constants';
 import EditModal from '../editModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Todo = ({todo = {}, todos = [], setTodos = () => {}}) => {
   const [openModal, setOpenModal] = useState(false);
   const [willEditText, setWillEditText] = useState(todo.text);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const deleteTodo = () => {
     Alert.alert(
@@ -21,7 +24,11 @@ const Todo = ({todo = {}, todos = [], setTodos = () => {}}) => {
           text: 'Sil',
           onPress: () => {
             const filteredTodos = todos.filter(item => item.id !== todo.id);
-            setTodos(filteredTodos);
+            AsyncStorage.setItem('@todos', JSON.stringify(filteredTodos)).then(
+              () => {
+                setTodos(filteredTodos);
+              },
+            );
           },
           style: 'destructive',
         },
@@ -42,7 +49,39 @@ const Todo = ({todo = {}, todos = [], setTodos = () => {}}) => {
         tempArr.push(newTodo);
       }
     }
-    setTodos(tempArr);
+    AsyncStorage.setItem('@todos', JSON.stringify(tempArr)).then(() => {
+      setTodos(tempArr);
+    });
+  };
+
+  const editTodo = () => {
+    // VALIDATION
+    if (willEditText === '') {
+      setHasError(true);
+      setErrorMessage('* Text alanı boş bırakılamaz');
+      setTimeout(() => {
+        setHasError(false);
+        setErrorMessage('');
+      }, 2000);
+      return;
+    }
+    // GUNCELLEME
+    const tempArr = [];
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id !== todo.id) {
+        tempArr.push(todos[i]);
+      } else {
+        const updatedTodo = {
+          ...todo,
+          text: willEditText,
+        };
+        tempArr.push(updatedTodo);
+      }
+    }
+    AsyncStorage.setItem('@todos', JSON.stringify(tempArr)).then(() => {
+      setTodos(tempArr);
+      setOpenModal(false);
+    });
   };
 
   return (
@@ -75,6 +114,9 @@ const Todo = ({todo = {}, todos = [], setTodos = () => {}}) => {
         setWillEditText={setWillEditText}
         visible={openModal}
         closeModal={() => setOpenModal(false)}
+        onConfirm={editTodo}
+        hasError={hasError}
+        errorMessage={errorMessage}
       />
     </View>
   );
