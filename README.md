@@ -32,4 +32,4 @@ npm run android
 yarn android
 ```
 
-![](ZightRecording2024-11-01at06.12.35PM-ezgif.com-video-to-gif-converter.gif)
+![Todo App](https://github.com/sungurcelik/todoApp-practice-mobil/issues/1#issue-2629283366)
